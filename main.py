@@ -1,0 +1,77 @@
+import typer
+from pathlib import Path
+from core import GeoToUtm, UtmToGeo
+
+app = typer.Typer(
+    help='programa em python para converter base de dados CSV entre diferentes sistemas de geolocalização',
+    add_completion=False
+)
+
+@app.command()
+def geo2utm(
+    input_file: Path = typer.Argument(
+        ..., 
+        help='caminho para o arquivo CSV de entrada (deve conter as colunas "lat" e "lon")',
+        exists=True,
+        file_okay=True,
+        dir_okay=False
+    ),
+    output_file: Path = typer.Argument(
+        ..., 
+        help='caminho onde o CSV final com os dados convertidos será salvo'
+    ),
+    source_epsg: str = typer.Option('EPSG:4326', help='EPSG code for source coordinate system'),
+    target_epsg: str = typer.Option('EPSG:31983', help='EPSG code for target coordinate system'),
+):
+    '''
+    converte coordenadas geográficas (EPSG:4326) para UTM (EPSG:31983).
+    '''
+    
+    try:
+        processor = GeoToUtm(f_input=str(input_file), f_output=str(output_file), epsg_source=source_epsg, epsg_target=target_epsg)
+        processor.process()
+        
+        typer.secho(f'sucesso! arquivo final salvo em: {output_file} 🎉', fg=typer.colors.GREEN, bold=True)
+        
+    except KeyError as e:
+        typer.secho(f'erro: coluna não encontrada {e}', fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+    except Exception as e:
+        typer.secho(f'ocorreu um erro inesperado: {e}', fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+
+@app.command()
+def utm2geo(
+    input_file: Path = typer.Argument(
+        ..., 
+        help='caminho para o arquivo CSV de entrada (deve conter as colunas "easting" e "northing")',
+        exists=True,
+        file_okay=True,
+        dir_okay=False
+    ),
+    output_file: Path = typer.Argument(
+        ..., 
+        help='caminho onde o CSV final com os dados convertidos será salvo'
+    ),
+    source_epsg: str = typer.Option('EPSG:31983', help='EPSG code for source coordinate system'),
+    target_epsg: str = typer.Option('EPSG:4326', help='EPSG code for target coordinate system'),
+):
+    '''
+    converte coordenadas UTM (EPSG:31983) para geográficas (EPSG:4326).
+    '''
+    
+    try:
+        processor = UtmToGeo(f_input=str(input_file), f_output=str(output_file), epsg_source=source_epsg, epsg_target=target_epsg)
+        processor.process()
+        
+        typer.secho(f'sucesso! arquivo final salvo em: {output_file} 🎉', fg=typer.colors.GREEN, bold=True)
+        
+    except KeyError as e:
+        typer.secho(f'erro: coluna não encontrada {e}', fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+    except Exception as e:
+        typer.secho(f'ocorreu um erro inesperado: {e}', fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+
+if __name__ == '__main__':
+    app()
