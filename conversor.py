@@ -15,7 +15,7 @@ class ProcessCsv:
 			reader = csv.DictReader(f)
 			self.input_fieldnames = reader.fieldnames
 
-	def process(self):
+	def run(self):
 		'''
 		for each row in the input file apply a transformation by calling self.trans()
 		'''
@@ -57,3 +57,4 @@ class UtmToGeo(ProcessCsv):
 	def __init__(self, f_input, f_output, epsg_source='EPSG:31983', epsg_target='EPSG:4326'):
 		super().__init__(f_input, f_output, epsg_source, epsg_target)
 		self.replace_map = {'easting': 'lon', 'northing': 'lat'}
+
