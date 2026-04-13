@@ -1,4 +1,4 @@
-# CLI
+# geocoordenadas
 
 programa em python para converter base de dados CSV entre diferentes sistemas de geolocalização
 
@@ -15,12 +15,12 @@ $ [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `geo2utm`: converte coordenadas geográficas...
-* `utm2geo`: converte coordenadas UTM (EPSG:31983) para...
-* `genmap`: gera um mapa interativo a partir de...
+* `utm2geo`: converte coordenadas UTM (EPSG:31983 como...
+* `map`: gera um mapa interativo a partir de...
 
 ## `geo2utm`
 
-converte coordenadas geográficas (EPSG:4326) para UTM (EPSG:31983).
+converte coordenadas geográficas (EPSG:4326 como padrão) para UTM (EPSG:31983 como padrão).
 
 **Usage**:
 
@@ -41,7 +41,7 @@ $ geo2utm [OPTIONS] INPUT_FILE OUTPUT_FILE
 
 ## `utm2geo`
 
-converte coordenadas UTM (EPSG:31983) para geográficas (EPSG:4326).
+converte coordenadas UTM (EPSG:31983 como padrão) para geográficas (EPSG:4326 como padrão).
 
 **Usage**:
 
@@ -60,19 +60,21 @@ $ utm2geo [OPTIONS] INPUT_FILE OUTPUT_FILE
 * `--target-epsg TEXT`: EPSG code for target coordinate system  [default: EPSG:4326]
 * `--help`: Show this message and exit.
 
-## `genmap`
+## `map`
 
 gera um mapa interativo a partir de coordenadas em um arquivo CSV.
 
 **Usage**:
 
 ```console
-$ genmap [OPTIONS] INPUT_FILE
+$ map [OPTIONS] INPUT_FILE [TITLE] [ID]
 ```
 
 **Arguments**:
 
 * `INPUT_FILE`: caminho para o arquivo CSV de entrada  [required]
+* `[TITLE]`: título do mapa  [default: Mapa]
+* `[ID]`: nome da coluna a ser usada como identificador dos pontos no mapa (opcional)
 
 **Options**:
 
