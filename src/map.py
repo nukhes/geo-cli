@@ -2,7 +2,7 @@ import csv
 import folium
 
 def generate_map(input_file, title, id, zoom_start):
-  map = folium.Map(location=[0, 0], zoom_start=zoom_start)
+  map = folium.Map(location=[0, 0], zoom_start=zoom_start, tiles="CartoDB positron")
   map.get_root().html.add_child(folium.Element(f"<h1>{title}</h1>"))
 
   with open(input_file, mode='r') as f_in:
