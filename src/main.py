@@ -84,6 +84,8 @@ def genmap(
         file_okay=True,
         dir_okay=False
     ),
+    title: str = typer.Option("Mapa", help='título do mapa'),
+    id: str = typer.Option(None, help='nome da coluna a ser usada como identificador dos pontos no mapa (opcional)'),
     zoom_start: int = typer.Option(2, help='nível de zoom inicial do mapa')
 ):
     '''
@@ -91,8 +93,8 @@ def genmap(
     '''
     
     try:
-        generate_map(input_file, zoom_start=zoom_start)
-        typer.secho(f'sucesso! mapa salvo como "map.html" 🎉', fg=typer.colors.GREEN, bold=True)
+        generate_map(input_file, title, id, zoom_start)
+        typer.secho(f'sucesso! mapa salvo como "mapa.html" 🎉', fg=typer.colors.GREEN, bold=True)
         
     except Exception as e:
         typer.secho(f'ocorreu um erro inesperado: {e}', fg=typer.colors.RED)
