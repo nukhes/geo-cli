@@ -16,7 +16,7 @@ class ProcessCsv:
 			raise NotImplementedError("fields_in and fields_out must be defined in subclasses.")
 
 		with open(self.f_input, mode='r', encoding='utf-8') as f_input, \
-			 open(self.f_output, mode='w', newline='', encoding='utf-8') as f_output:
+			open(self.f_output, mode='w', newline='', encoding='utf-8') as f_output:
 			reader = csv.DictReader(f_input)
 
 			output_fieldnames = [f for f in reader.fieldnames if f not in self.fields_in] + self.fields_out
