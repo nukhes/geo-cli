@@ -6,7 +6,7 @@ from pathlib import Path
 from petrology import color_index, rock_age
 
 app = typer.Typer(
-    help="toolkit de ferramentas relacionadas a geociências construídas por mim",
+    help="toolkit de ferramentas relacionadas a geociências.",
     add_completion=False,
 )
 
