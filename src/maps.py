@@ -40,6 +40,13 @@ def generate_map(input_file, title, id, zoom_start):
 def convert_scale(scale, measure):
     try:
         scale_list = re.split(":", scale)
+
+        if len(scale_list) != 2:
+            raise ValueError("a escala deve estar no formato '1:1000'.")
+        
+        if int(scale_list[1]) == 0:
+            raise ZeroDivisionError("o denominador da escala não pode ser zero.")
+
         key = int(scale_list[1]) / int(scale_list[0])
         return key * float(measure)
     except Exception as e:
