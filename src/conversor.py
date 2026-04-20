@@ -16,7 +16,7 @@ class ProcessCsv:
         self.fields_out = []
 
     def run(self):
-        if self.fields_in is None or self.fields_out is None:
+        if not self.fields_in or not self.fields_out:
             raise NotImplementedError(
                 "fields_in and fields_out must be defined in subclasses."
             )
