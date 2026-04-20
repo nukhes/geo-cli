@@ -1,12 +1,16 @@
 [project]
-name = "geocoordenadas"
+name = "geo-cli"
 version = "0.1.0"
-description = "ferramentas cli para a manipulação geográfica"
+description = "toolkit de ferramentas relacionadas a geociências"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "folium>=0.20.0",
     "pyproj>=3.7.2",
     "rich>=15.0.0",
+    "ruff>=0.15.11",
     "typer>=0.24.1",
 ]
+
+[project.scripts]
+geo-cli = "src.main:app"
