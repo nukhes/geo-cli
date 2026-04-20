@@ -1,6 +1,6 @@
 # geo-cli
 
-toolkit de ferramentas construídas por mim durante a graduação em geologia na unicamp
+toolkit de ferramentas relacionadas a geociências construídas por mim
 
 **Usage**:
 
@@ -20,8 +20,9 @@ $ geo-cli [OPTIONS] COMMAND [ARGS]...
 * `mineralformula`: constroe a tabela de formula mineral com...
 * `escala`: calcula a distância real correspondente a...
 * `indicecor`: calcula o índice de cor de uma rocha com...
-* `mergulho`
-* `idaderocha`
+* `mergulho`: determina a espessura real de um...
+* `idaderocha`: determina a idade de uma rocha com base na...
+* `atitude`: converte uma atitude no formato...
 
 ## `geo-cli geo2utm`
 
@@ -146,6 +147,8 @@ $ geo-cli indicecor [OPTIONS]
 
 ## `geo-cli mergulho`
 
+determina a espessura real de um afloramento com base no comprimento na superfície e no seu ângulo de mergulho.
+
 **Usage**:
 
 ```console
@@ -163,6 +166,8 @@ $ geo-cli mergulho [OPTIONS] LENGTH ANGLE
 
 ## `geo-cli idaderocha`
 
+determina a idade de uma rocha com base na quantidade do isótopo pai e filho presentes nela, e na meia-vida do isótopo pai.
+
 **Usage**:
 
 ```console
@@ -174,4 +179,22 @@ $ geo-cli idaderocha [OPTIONS]
 * `-p, --pai FLOAT`: quantidade do isótopo pai  [required]
 * `-f, --filho FLOAT`: quantidade do isótopo filho  [required]
 * `-mv, --meia-vida FLOAT`: meia-vida do isótopo pai  [required]
+* `--help`: Show this message and exit.
+
+## `geo-cli atitude`
+
+converte uma atitude no formato Rumo/Mergulho/Quadrante para o formato internacional Dip Direction/Dip (strike-dip).
+
+**Usage**:
+
+```console
+$ geo-cli atitude [OPTIONS] RMQ
+```
+
+**Arguments**:
+
+* `RMQ`: atitude no formato Rumo/Mergulho/Quadrante  [required]
+
+**Options**:
+
 * `--help`: Show this message and exit.
