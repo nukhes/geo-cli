@@ -13,4 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-geo-cli = "src.main:app"
+geo-cli = "main:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
