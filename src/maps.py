@@ -42,3 +42,4 @@ def real_thickness(length, angle):
     print(theta)
     thickness = theta * length
     return thickness
+    

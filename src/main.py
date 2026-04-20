@@ -1,8 +1,8 @@
 import typer
+import maps
+import conversor as conv
 from pathlib import Path
-from maps import convert_scale, generate_map, real_thickness
 from formula import mineral_formula
-from conversor import GeoToUtm, UtmToGeo
 from petrology import color_index, rock_age
 
 app = typer.Typer(
@@ -39,7 +39,7 @@ def geo2utm(
     '''
     converte coordenadas geográficas (EPSG:4326 como padrão) para UTM (EPSG:31983 como padrão).
     '''
-    workflow(GeoToUtm(f_input=str(input_file), f_output=str(output_file), epsg_source=source_epsg, epsg_target=target_epsg).run())		
+    workflow(conv.GeoUtm(f_input=str(input_file), f_output=str(output_file), epsg_source=source_epsg, epsg_target=target_epsg).run())		
 
 
 @app.command()
@@ -61,7 +61,7 @@ def utm2geo(
     '''
     converte coordenadas UTM (EPSG:31983 como padrão) para geográficas (EPSG:4326 como padrão).
     '''
-    workflow(UtmToGeo(f_input=str(input_file), f_output=str(output_file), epsg_source=source_epsg, epsg_target=target_epsg).run())
+    workflow(conv.UtmGeo(f_input=str(input_file), f_output=str(output_file), epsg_source=source_epsg, epsg_target=target_epsg).run())
 
 @app.command()
 def map(
@@ -79,7 +79,7 @@ def map(
     '''
     gera um mapa interativo a partir de coordenadas em um arquivo CSV.
     '''
-    workflow(generate_map(input_file, title, id, zoom_start))
+    workflow(maps.generate_map(input_file, title, id, zoom_start))
 
 @app.command()
 def mineralformula(
@@ -108,7 +108,7 @@ def escala(
     '''
     calcula a distância real correspondente a uma medida feita em uma carta, com base na escala fornecida.
     '''
-    res = convert_scale(escala, distancia_carta)
+    res = maps.convert_scale(escala, distancia_carta)
     typer.secho(f'distância real: {res} cm ou {res/1000} km', fg=typer.colors.GREEN, bold=True)
 
 @app.command()
@@ -123,6 +123,7 @@ def indicecor(
     '''
     calcula o índice de cor de uma rocha com base na proporção de minerais escuros (m) presente nela.
     '''
+
     m = olivina + piroxenio + biotita + anfibolio + opacos + outros
     if m > 1.0:
         typer.secho(f'a soma das porcentagens de minerais escuros excede 100% (m = {m}). O índice de cor pode ser impreciso.', fg=typer.colors.YELLOW)
@@ -135,10 +136,14 @@ def mergulho(
     length: float = typer.Argument(...,help='comprimento do afloramento na superfície'),
     angle: float = typer.Argument(..., help='ângulo de mergulho do afloramento')
     ):
+    '''
+    determina a espessura real de um afloramento com base no comprimento na superfície e no seu ângulo de mergulho.
+    '''
+
     if angle > 90 or angle < 0:
         raise ValueError(f'o ângulo deve estar entre 0 e 90 graus')
-        return
-    typer.secho(f'espessura reais: {real_thickness(length, angle)}', fg=typer.colors.GREEN, bold=True)
+    
+    typer.secho(f'espessura real: {maps.real_thickness(length, angle)}', fg=typer.colors.GREEN, bold=True)
 
 @app.command()
 def idaderocha(
@@ -154,6 +159,14 @@ def idaderocha(
     typer.secho(f"A idade calculada da rocha é: {rock_age(parent, daughter, hl)} anos", fg=typer.colors.GREEN)
 
 @app.command()
+def atitude(
+    rmq: str = typer.Argument(..., help="atitude no formato Rumo/Mergulho/Quadrante"),
+    ):
+    '''
+    converte uma atitude no formato Rumo/Mergulho/Quadrante para o formato internacional Dip Direction/Dip (strike-dip).
+    '''
+
+    typer.secho(f"Dip Direction/Dip: {conv.strikedip(rmq)}", fg=typer.colors.GREEN)
 
 if __name__ == '__main__':
     app()
