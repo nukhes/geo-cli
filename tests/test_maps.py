@@ -12,7 +12,7 @@ import math
 import sys
 import csv
 from pathlib import Path
-from unittest.mock import patch, MagicMock, mock_open
+from unittest.mock import patch, MagicMock
 
 # Adiciona src ao path para imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -328,9 +328,7 @@ class TestGenerateMap:
         # Assert - se não lançou exceção, passou
         assert True
 
-    def test_deve_gerar_mapa_com_coordenadas_utm(
-        self, sample_utm_csv, tmp_path
-    ):
+    def test_deve_gerar_mapa_com_coordenadas_utm(self, sample_utm_csv, tmp_path):
         """
         Arrange: CSV com coordenadas UTM (easting/northing)
         Act: Chama generate_map com dados UTM
@@ -389,9 +387,7 @@ class TestGenerateMap:
             except Exception as e:
                 pytest.skip(f"Erro ao gerar mapa: {e}")
 
-    def test_deve_aceitar_diferentes_zoom_levels(
-        self, sample_geographic_csv
-    ):
+    def test_deve_aceitar_diferentes_zoom_levels(self, sample_geographic_csv):
         """
         Arrange: Diferentes níveis de zoom
         Act: Gera mapas com zoom 2, 4, 8, 12
@@ -408,9 +404,7 @@ class TestGenerateMap:
                 except Exception as e:
                     pytest.skip(f"Erro com zoom {zoom}: {e}")
 
-    def test_deve_usar_campo_id_se_fornecido(
-        self, sample_geographic_csv
-    ):
+    def test_deve_usar_campo_id_se_fornecido(self, sample_geographic_csv):
         """
         Arrange: Campo ID fornecido na chamada
         Act: Chama generate_map com id="id"
@@ -429,9 +423,7 @@ class TestGenerateMap:
             except Exception as e:
                 pytest.skip(f"Erro ao usar campo ID: {e}")
 
-    def test_deve_usar_numero_linha_se_sem_id(
-        self, sample_geographic_csv
-    ):
+    def test_deve_usar_numero_linha_se_sem_id(self, sample_geographic_csv):
         """
         Arrange: Sem campo ID (None)
         Act: Chama generate_map com id=None
@@ -460,21 +452,14 @@ class TestGenerateMap:
         with pytest.raises(FileNotFoundError):
             generate_map("/caminho/inexistente.csv", "Mapa", None, 4)
 
-    def test_deve_criar_marcadores_para_cada_linha(
-        self, sample_geographic_csv
-    ):
+    def test_deve_criar_marcadores_para_cada_linha(self, sample_geographic_csv):
         """
         Arrange: CSV com múltiplas linhas
         Act: Gera mapa
         Assert: Cria marcador para cada ponto
         """
-        # Arrange
-        with open(sample_geographic_csv, "r") as f:
-            reader = csv.DictReader(f)
-            num_rows = len(list(reader))
-
         # Act & Assert
-        with patch("maps.folium.Marker") as mock_marker:
+        with patch("maps.folium.Marker") as _:
             with patch("maps.folium.Map"):
                 try:
                     generate_map(sample_geographic_csv, "Mapa", None, 4)

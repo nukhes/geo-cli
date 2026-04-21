@@ -205,8 +205,8 @@ class TestRockAge:
         # Arrange
         # Half-lives em anos
         u238_hl = 4.468e9  # 4.468 bilhões
-        k40_hl = 1.251e9   # 1.251 bilhões
-        c14_hl = 5730      # 5730
+        k40_hl = 1.251e9  # 1.251 bilhões
+        c14_hl = 5730  # 5730
 
         # Act
         age_u238 = rock_age(1.0, 1.0, u238_hl)

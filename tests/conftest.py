@@ -125,7 +125,7 @@ def elements_data(elements_csv_path):
 def temp_output_csv(tmp_path):
     """
     Fornece um caminho temporário para arquivo CSV de saída.
-    
+
     Útil para testes de transformação/conversão de dados.
     """
     return str(tmp_path / "output.csv")
@@ -135,7 +135,7 @@ def temp_output_csv(tmp_path):
 def temp_html_file(tmp_path):
     """
     Fornece um caminho temporário para arquivo HTML.
-    
+
     Útil para testes de geração de mapas.
     """
     return str(tmp_path / "mapa.html")
@@ -145,7 +145,7 @@ def temp_html_file(tmp_path):
 def sample_geographic_csv(tmp_path):
     """
     Cria um arquivo CSV temporário com coordenadas geográficas (lat/lon).
-    
+
     Usado em testes de conversão geo2utm.
     """
     csv_file = tmp_path / "sample_geo.csv"
@@ -154,13 +154,13 @@ def sample_geographic_csv(tmp_path):
         {"id": "2", "lat": "-19.920682", "lon": "-43.938677"},  # Belo Horizonte, MG
         {"id": "3", "lat": "-22.903756", "lon": "-43.209881"},  # Rio de Janeiro, RJ
     ]
-    
+
     with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
         fieldnames = ["id", "lat", "lon"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
-    
+
     return str(csv_file)
 
 
@@ -168,7 +168,7 @@ def sample_geographic_csv(tmp_path):
 def sample_utm_csv(tmp_path):
     """
     Cria um arquivo CSV temporário com coordenadas UTM (easting/northing).
-    
+
     Usado em testes de conversão utm2geo.
     """
     csv_file = tmp_path / "sample_utm.csv"
@@ -177,13 +177,13 @@ def sample_utm_csv(tmp_path):
         {"id": "2", "easting": "567835", "northing": "7796545"},
         {"id": "3", "easting": "689234", "northing": "7465234"},
     ]
-    
+
     with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
         fieldnames = ["id", "easting", "northing"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
-    
+
     return str(csv_file)
 
 
@@ -191,7 +191,7 @@ def sample_utm_csv(tmp_path):
 def sample_mineral_csv(tmp_path):
     """
     Cria um arquivo CSV temporário com fórmulas minerais.
-    
+
     Usado em testes de análise de minerais.
     """
     csv_file = tmp_path / "sample_mineral.csv"
@@ -209,11 +209,11 @@ def sample_mineral_csv(tmp_path):
             "analise quimica": "100.0",
         },
     ]
-    
+
     with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
         fieldnames = ["molecula", "analise quimica"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
-    
+
     return str(csv_file)

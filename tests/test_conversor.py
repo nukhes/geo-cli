@@ -11,9 +11,7 @@ Cobre:
 import pytest
 import csv
 import sys
-import tempfile
 from pathlib import Path
-from unittest.mock import patch, MagicMock
 
 # Adiciona src ao path para imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -227,7 +225,9 @@ class TestGeoUtm:
         converter.run()
         assert Path(output_file).exists()
 
-    def test_deve_valores_utm_serem_numeros(self, sample_geographic_csv, temp_output_csv):
+    def test_deve_valores_utm_serem_numeros(
+        self, sample_geographic_csv, temp_output_csv
+    ):
         """
         Arrange: CSV com coordenadas geográficas
         Act: Converte e lê valores UTM
@@ -347,9 +347,7 @@ class TestUtmGeo:
 class TestConversaoRoundTrip:
     """Testes de conversão bidirecional (round-trip)."""
 
-    def test_deve_geo2utm2geo_manter_aproximacao(
-        self, sample_geographic_csv, tmp_path
-    ):
+    def test_deve_geo2utm2geo_manter_aproximacao(self, sample_geographic_csv, tmp_path):
         """
         Arrange: CSV com coordenadas geográficas originais
         Act: Converte Geo->UTM->Geo
@@ -370,9 +368,7 @@ class TestConversaoRoundTrip:
         utm_to_geo.run()
 
         # Assert
-        with open(geo_input, mode="r") as f1, open(
-            geo_output, mode="r"
-        ) as f2:
+        with open(geo_input, mode="r") as f1, open(geo_output, mode="r") as f2:
             reader1 = csv.DictReader(f1)
             reader2 = csv.DictReader(f2)
             rows1 = list(reader1)
@@ -385,9 +381,5 @@ class TestConversaoRoundTrip:
                 lon1 = float(row1["lon"])
                 lat2 = float(row2["lat"])
                 lon2 = float(row2["lon"])
-                assert (
-                    abs(lat1 - lat2) < 0.01
-                ), f"Latitude divergiu: {lat1} != {lat2}"
-                assert (
-                    abs(lon1 - lon2) < 0.01
-                ), f"Longitude divergiu: {lon1} != {lon2}"
+                assert abs(lat1 - lat2) < 0.01, f"Latitude divergiu: {lat1} != {lat2}"
+                assert abs(lon1 - lon2) < 0.01, f"Longitude divergiu: {lon1} != {lon2}"

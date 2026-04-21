@@ -11,11 +11,9 @@ Testa:
 - mergulho: Cálculo de espessura real de afloramento
 """
 
-import pytest
 import sys
-import csv
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from typer.testing import CliRunner
 
 # Adiciona src ao path para imports
@@ -189,9 +187,7 @@ class TestUtm2GeoCommand:
 class TestMapCommand:
     """Testes para comando map."""
 
-    def test_deve_executar_com_arquivo_valido(
-        self, sample_geographic_csv, monkeypatch
-    ):
+    def test_deve_executar_com_arquivo_valido(self, sample_geographic_csv, monkeypatch):
         """
         Arrange: Arquivo CSV com coordenadas geográficas
         Act: Executa comando map com patch de folium.Map.save()
@@ -213,9 +209,7 @@ class TestMapCommand:
         # Assert
         assert result.exit_code == 0, f"Erro na CLI: {result.stdout}"
 
-    def test_deve_aceitar_zoom_customizado(
-        self, sample_geographic_csv, monkeypatch
-    ):
+    def test_deve_aceitar_zoom_customizado(self, sample_geographic_csv, monkeypatch):
         """
         Arrange: Arquivo válido com zoom customizado
         Act: Executa map com --zoom-start
@@ -238,9 +232,7 @@ class TestMapCommand:
         # Assert
         assert result.exit_code == 0
 
-    def test_deve_aceitar_campo_identificador(
-        self, sample_geographic_csv, monkeypatch
-    ):
+    def test_deve_aceitar_campo_identificador(self, sample_geographic_csv, monkeypatch):
         """
         Arrange: Arquivo com coluna de identificador
         Act: Executa map com --id
@@ -433,6 +425,7 @@ class TestIndiceCorCommand:
         # Assert
         assert result.exit_code == 1
 
+
 class TestMergulhoCommand:
     """Testes para comando mergulho."""
 
@@ -448,7 +441,7 @@ class TestMergulhoCommand:
             [
                 "mergulho",
                 "100",  # comprimento em metros
-                "45",   # ângulo em graus
+                "45",  # ângulo em graus
             ],
         )
 

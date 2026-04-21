@@ -11,7 +11,7 @@ import pytest
 import csv
 import sys
 from pathlib import Path
-from unittest.mock import mock_open, patch, MagicMock
+from unittest.mock import patch
 
 # Adiciona src ao path para imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -234,7 +234,9 @@ class TestMineral:
             pytest.skip(f"Erro ao processar mineral: {e}")
 
         # Assert
-        assert columns == expected_columns, f"Colunas esperadas: {expected_columns}, obtidas: {columns}"
+        assert columns == expected_columns, (
+            f"Colunas esperadas: {expected_columns}, obtidas: {columns}"
+        )
 
     def test_deve_pular_linhas_invalidas_sem_falhar(
         self, tmp_path, temp_output_csv, elements_csv_path

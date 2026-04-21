@@ -26,7 +26,7 @@ def rock_age(parent, daughter, hl):
             raise ValueError("os parâmetros parent, daughter e hl devem ser positivos.")
     if hl == 0:
         raise ValueError("o tempo de meia-vida (hl) não pode ser zero.")
-    
+
     lam = (math.log(2)) / hl
     age = (1 / lam) * math.log(1 + (daughter / parent))
     return age

@@ -43,7 +43,7 @@ def convert_scale(scale, measure):
 
         if len(scale_list) != 2:
             raise ValueError("a escala deve estar no formato '1:1000'.")
-        
+
         if int(scale_list[1]) == 0:
             raise ZeroDivisionError("o denominador da escala não pode ser zero.")
 
