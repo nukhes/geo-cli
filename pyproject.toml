@@ -1,5 +1,5 @@
 [project]
-name = "geo-cli"
+name = "geociencias-cli"
 version = "0.1.0"
 description = "toolkit de ferramentas relacionadas a geociências"
 readme = "README.md"
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-geo-cli = "main:app"
+geociencias-cli = "main:app"
 
 [tool.setuptools.packages.find]
 where = ["src"]
