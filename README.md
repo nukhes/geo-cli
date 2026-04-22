@@ -1,6 +1,6 @@
 # geo-cli
 
-toolkit de ferramentas relacionadas a geociências construídas por mim
+toolkit de ferramentas relacionadas a geociências.
 
 **Usage**:
 
