@@ -1,9 +1,9 @@
 import typer
-import maps
-import conversor as conv
-import formula
+from geociencias_cli import maps
+from geociencias_cli import conversor as conv
+from geociencias_cli import formula
 from pathlib import Path
-from petrology import color_index, rock_age
+from geociencias_cli import petrology as petro
 
 app = typer.Typer(
     help="toolkit de ferramentas relacionadas a geociências.",
@@ -185,7 +185,9 @@ def indicecor(
             f"a soma das porcentagens de minerais escuros é negativa (m = {m}). O índice de cor pode ser impreciso.",
             fg=typer.colors.YELLOW,
         )
-    typer.secho(f"índice de cor: {color_index(m)}", fg=typer.colors.GREEN, bold=True)
+    typer.secho(
+        f"índice de cor: {petro.color_index(m)}", fg=typer.colors.GREEN, bold=True
+    )
 
 
 @app.command()
@@ -230,7 +232,7 @@ def idaderocha(
         raise typer.Exit(code=1)
 
     typer.secho(
-        f"A idade calculada da rocha é: {rock_age(parent, daughter, hl)} anos",
+        f"A idade calculada da rocha é: {petro.rock_age(parent, daughter, hl)} anos",
         fg=typer.colors.GREEN,
     )
 

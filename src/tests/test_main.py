@@ -17,9 +17,9 @@ from unittest.mock import patch
 from typer.testing import CliRunner
 
 # Adiciona src ao path para imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from main import app
+from geociencias_cli.main import app
 
 runner = CliRunner()
 
@@ -195,7 +195,7 @@ class TestMapCommand:
         """
         # Arrange
         # Mock folium.Map.save para não criar arquivo HTML real
-        with patch("maps.folium.Map.save"):
+        with patch("geociencias_cli.maps.folium.Map.save"):
             # Act
             result = runner.invoke(
                 app,
@@ -216,7 +216,7 @@ class TestMapCommand:
         Assert: Retorna sucesso
         """
         # Arrange
-        with patch("maps.folium.Map.save"):
+        with patch("geociencias_cli.maps.folium.Map.save"):
             # Act
             result = runner.invoke(
                 app,
@@ -239,7 +239,7 @@ class TestMapCommand:
         Assert: Retorna sucesso
         """
         # Arrange
-        with patch("maps.folium.Map.save"):
+        with patch("geociencias_cli.maps.folium.Map.save"):
             # Act
             result = runner.invoke(
                 app,

@@ -14,9 +14,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 # Adiciona src ao path para imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from formula import get_ions, load_data, mineral
+from geociencias_cli.formula import get_ions, load_data, mineral
 
 
 class TestLoadData:
@@ -190,7 +190,7 @@ class TestMineral:
         # Act
         try:
             # Nota: Precisa ajustar para pegar o elements.csv no local correto
-            with patch("formula.load_data") as mock_load:
+            with patch("geociencias_cli.formula.load_data") as mock_load:
                 mock_load.return_value = load_data(elements_csv_path)
                 mineral(input_file, output_file)
         except Exception as e:
@@ -222,7 +222,7 @@ class TestMineral:
 
         # Act
         try:
-            with patch("formula.load_data") as mock_load:
+            with patch("geociencias_cli.formula.load_data") as mock_load:
                 mock_load.return_value = load_data(elements_csv_path)
                 mineral(input_file, output_file)
 
@@ -260,7 +260,7 @@ class TestMineral:
 
         # Act & Assert
         try:
-            with patch("formula.load_data") as mock_load:
+            with patch("geociencias_cli.formula.load_data") as mock_load:
                 mock_load.return_value = load_data(elements_csv_path)
                 mineral(input_file, output_file)  # Não deve lançar
         except Exception as e:
@@ -287,7 +287,7 @@ class TestMineral:
 
         # Act & Assert
         try:
-            with patch("formula.load_data") as mock_load:
+            with patch("geociencias_cli.formula.load_data") as mock_load:
                 mock_load.return_value = load_data(elements_csv_path)
                 mineral(input_file, output_file)
         except Exception as e:

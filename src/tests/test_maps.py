@@ -15,9 +15,9 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 # Adiciona src ao path para imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from maps import generate_map, convert_scale, real_thickness
+from geociencias_cli.maps import generate_map, convert_scale, real_thickness
 
 
 class TestConvertScale:
@@ -315,7 +315,7 @@ class TestGenerateMap:
         title = "Teste Mapa Geo"
 
         # Mock folium.Map.save
-        with patch("maps.folium.Map") as mock_map:
+        with patch("geociencias_cli.maps.folium.Map") as mock_map:
             mock_instance = MagicMock()
             mock_map.return_value = mock_instance
 
@@ -339,7 +339,7 @@ class TestGenerateMap:
         title = "Teste Mapa UTM"
 
         # Act & Assert
-        with patch("maps.folium.Map") as mock_map:
+        with patch("geociencias_cli.maps.folium.Map") as mock_map:
             mock_instance = MagicMock()
             mock_map.return_value = mock_instance
 
@@ -362,7 +362,7 @@ class TestGenerateMap:
             writer.writerow([1, 2, 3])
 
         # Act & Assert
-        with patch("maps.folium.Map"):
+        with patch("geociencias_cli.maps.folium.Map"):
             with pytest.raises(ValueError):
                 generate_map(str(csv_file), "Mapa", None, 4)
 
@@ -376,7 +376,7 @@ class TestGenerateMap:
         title = "Mapa de Capitais"
 
         # Act & Assert
-        with patch("maps.folium.Map") as mock_map:
+        with patch("geociencias_cli.maps.folium.Map") as mock_map:
             mock_instance = MagicMock()
             mock_map.return_value = mock_instance
 
@@ -395,7 +395,7 @@ class TestGenerateMap:
         """
         # Act & Assert
         for zoom in [2, 4, 8, 12]:
-            with patch("maps.folium.Map") as mock_map:
+            with patch("geociencias_cli.maps.folium.Map") as mock_map:
                 mock_instance = MagicMock()
                 mock_map.return_value = mock_instance
 
@@ -414,7 +414,7 @@ class TestGenerateMap:
         id_field = "id"
 
         # Act & Assert
-        with patch("maps.folium.Map") as mock_map:
+        with patch("geociencias_cli.maps.folium.Map") as mock_map:
             mock_instance = MagicMock()
             mock_map.return_value = mock_instance
 
@@ -433,7 +433,7 @@ class TestGenerateMap:
         id_field = None
 
         # Act & Assert
-        with patch("maps.folium.Map") as mock_map:
+        with patch("geociencias_cli.maps.folium.Map") as mock_map:
             mock_instance = MagicMock()
             mock_map.return_value = mock_instance
 
@@ -459,8 +459,8 @@ class TestGenerateMap:
         Assert: Cria marcador para cada ponto
         """
         # Act & Assert
-        with patch("maps.folium.Marker") as _:
-            with patch("maps.folium.Map"):
+        with patch("geociencias_cli.maps.folium.Marker") as _:
+            with patch("geociencias_cli.maps.folium.Map"):
                 try:
                     generate_map(sample_geographic_csv, "Mapa", None, 4)
                     # Não é fácil validar número exato de markers

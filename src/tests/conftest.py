@@ -13,7 +13,7 @@ import pandas as pd
 
 # Caminhos base
 EXAMPLES_DIR = Path(__file__).parent.parent / "examples"
-SRC_DIR = Path(__file__).parent.parent / "src"
+SRC_DIR = Path(__file__).parent.parent / "geociencias_cli"
 
 
 @pytest.fixture(scope="session")

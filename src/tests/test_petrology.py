@@ -12,9 +12,9 @@ import sys
 from pathlib import Path
 
 # Adiciona src ao path para imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from petrology import color_index, rock_age
+from geociencias_cli.petrology import color_index, rock_age
 
 
 class TestColorIndex:
