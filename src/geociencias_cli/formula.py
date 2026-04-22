@@ -100,7 +100,11 @@ def mineral(input_file, output_file):
 
             cats, anis, balance = get_ions(mol, elements)
             all_atoms = {**cats, **anis}
-            mass = sum(elements[el]["mass"] * qt for el, qt in all_atoms.items() if el in elements)
+            mass = sum(
+                elements[el]["mass"] * qt
+                for el, qt in all_atoms.items()
+                if el in elements
+            )
 
             if mass == 0:
                 continue
